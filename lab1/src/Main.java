@@ -22,7 +22,7 @@ public class Main {
 
                 //Розбиваємо рядок на слова. Роздільником є будь-який
                 //символ, окрім букв та цифр
-                String[] wordsInLine = line.split("[^a-zA-Z0-9\"'-]");
+                String[] wordsInLine = line.split("[^[a-zA-Z]]");
                 // Зменшуємо довжину надто великих слів
                 cutWord(wordsInLine);
                 words.addAll(Arrays.asList(wordsInLine));
@@ -31,7 +31,7 @@ public class Main {
 
             // Знаходимо результат та виводимо його
             ArrayList<String> res = getWordWithLargestSubstring(words);
-            for (String word : deleteDuplicates(res))
+            for (String word : res)
             {
                 System.out.print(word + "; ");
             }
@@ -63,10 +63,10 @@ public class Main {
         {
             chain_length = longestConsonant(word);
 
-            if(chain_length == chain_lenght_max) {
+            if(chain_length == chain_lenght_max && !arrayListResult.contains(word)) {
                 arrayListResult.add(word);
             }
-            if(chain_length > chain_lenght_max) {
+            if(chain_length > chain_lenght_max && !arrayListResult.contains(word)) {
                 arrayListResult.clear();
                 arrayListResult.add(word);
             }
@@ -102,16 +102,5 @@ public class Main {
             res = Math.max(res, count);
         }
         return res;
-    }
-
-    // Функція видаляє копії слів
-    private static ArrayList<String> deleteDuplicates(ArrayList<String> list) {
-        ArrayList listTemp = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            if (!listTemp.contains(list.get(i))) {
-                listTemp.add(list.get(i));
-            }
-        }
-        return listTemp;
     }
 }
